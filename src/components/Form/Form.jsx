@@ -3,8 +3,10 @@ import { Field, Form as FormikForm, Formik } from "formik";
 import * as Yup from "yup";
 import { Button } from "../Button";
 
-const SignupSchema = Yup.object().shape({
-  url: Yup.string().url("Введите правильный URL").required("Обязательное поле"),
+const urlSchema = Yup.object().shape({
+  url: Yup.string()
+    .url("Введите правильный URL")
+    .required("URL-это обязательное поле"),
 });
 
 const Form = () => {
@@ -15,9 +17,8 @@ const Form = () => {
           initialValues={{
             url: "",
           }}
-          validationSchema={SignupSchema}
+          validationSchema={urlSchema}
           onSubmit={(values) => {
-            // same shape as initial values
             console.log(values);
           }}
         >
@@ -28,10 +29,10 @@ const Form = () => {
               ) : null}
               <Field
                 name="url"
-                placeholder="Paste link"
+                placeholder="Вставьте ссылку"
                 className={classes.input}
                 style={{
-                  outline: `1px solid ${
+                  outline: `2px solid ${
                     errors.url && touched.url ? "red" : "transparent"
                   }`,
                 }}
