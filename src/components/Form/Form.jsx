@@ -2,14 +2,19 @@ import classes from "./Form.module.scss";
 import { Field, Form as FormikForm, Formik } from "formik";
 import * as Yup from "yup";
 import { Button } from "../Button";
+import LinkStore from "../../store/linkStore";
+import { observer } from "mobx-react";
 
 const urlSchema = Yup.object().shape({
   url: Yup.string()
-    .url("Введите правильный URL")
+    .matches(
+      /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+      "Введите корректный URL!"
+    )
     .required("URL-это обязательное поле"),
 });
 
-const Form = () => {
+const Form = observer(() => {
   return (
     <section className={classes.section}>
       <div className="container">
@@ -18,8 +23,10 @@ const Form = () => {
             url: "",
           }}
           validationSchema={urlSchema}
-          onSubmit={(values) => {
-            console.log(values);
+          onSubmit={(values, actions) => {
+            LinkStore.createShortLink(values.url);
+            console.log(LinkStore.loading);
+            actions.resetForm();
           }}
         >
           {({ errors, touched }) => (
@@ -47,6 +54,6 @@ const Form = () => {
       </div>
     </section>
   );
-};
+});
 
 export { Form };
