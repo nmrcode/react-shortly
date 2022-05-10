@@ -1,6 +1,5 @@
 import classes from "./Hero.module.scss";
 import Img from "../../images/illustration-working.svg";
-import { Button } from "../Button";
 
 const Hero = () => {
   return (
@@ -9,12 +8,11 @@ const Hero = () => {
         <img src={Img} alt="hero" className={classes.img} />
       </div>
       <article className={classes.text}>
-        <h1 className={classes.title}>More than just shorter links</h1>
+        <h1 className={classes.title}>Больше, чем просто короткие ссылки</h1>
         <p className={classes.description}>
-          Build your brand's recognition and get detailed insights on how your
-          links are performing.
+          Повышайте узнаваемость своего бренда и получайте подробные сведения о
+          том, как ссылки работают.
         </p>
-        <Button size="large">Get Started</Button>
       </article>
     </section>
   );
