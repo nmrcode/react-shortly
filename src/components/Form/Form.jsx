@@ -46,7 +46,7 @@ const Form = observer(() => {
               />
 
               <Button variant="square" type="submit" size="medium">
-                Shorten it!
+                Сократить
               </Button>
             </FormikForm>
           )}

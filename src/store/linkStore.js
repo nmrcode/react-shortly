@@ -6,12 +6,14 @@ import { autoSave } from "./localStorageSave";
 class LinkStore {
   items = [];
   loading = "";
+  status = "";
 
   constructor() {
     makeObservable(this, {
       items: observable,
       loading: observable,
       createShortLink: action,
+      status: observable,
     });
     autoSave(this, "linkStore");
   }
@@ -24,9 +26,11 @@ class LinkStore {
         const { ok, result } = data;
         this.items.push(result);
         this.loading = "false";
+        this.status = "";
       })
-      .catch((e) => {
-        console.log(e);
+      .catch(({ response }) => {
+        const { error, disallowed_reason } = response.data;
+        this.status = `${url}: ${error}: ${disallowed_reason}`;
       });
   }
 }
